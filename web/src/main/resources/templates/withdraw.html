@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Withdraw</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script th:src="@{../static/js/withdraw.js}"></script>
+    <link th:href="@{../static/css/withdraw.css}" rel="stylesheet"/>
+    <style>
+        button {
+            background-color: #0099cc;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 17px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 23px 20px;
+            width: 115px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        #ron, #euro {
+            font-size: 17px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $(".amount").click(function () {
+                $("#withdraw").val($(this).val());
+            });
+        });
+    </script>
+</head>
+<body>
+<b>Your info:</b>
+<p th:text="${balance}"></p>
+<b>Enter amount to be withdrawn</b>
+<br/>
+<form action="#" id="withdrawForm" th:action="@{/}" method="post">
+    <input type="text" id="withdraw" name="withdraw"></input>
+    <br/>
+    <table>
+        <tr>
+            <td>
+                <button type="button" class="amount" value="100">100</button>
+            </td>
+            <td>
+                <button type="button" class="amount" value="200">200</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="amount" value="300">300</button>
+            </td>
+
+            <td>
+                <button type="button" class="amount" value="500">500</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" class="amount" value="1000">1000</button>
+            </td>
+
+            <td>
+                <button type="button" class="amount" value="1500">1500</button>
+            </td>
+        </tr>
+    </table>
+    <input type="radio" name="currency" value="ron" id="ron" checked="checked"/> Ron
+
+    <input type="radio" name="currency" value="euro" id="euro"/> Euro
+    <br/>
+
+    <button type="submit">Submit</button>
+
+</form>
+
+
+</body>
+</html>

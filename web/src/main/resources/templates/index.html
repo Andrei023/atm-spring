@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>ATM</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link th:href="@{../static/css/index.css}" rel="stylesheet"/>
+    <script th:src="@{/js/deposit.js}"></script>
+    <style>
+        button {
+            background-color: #0099cc;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 17px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 23px 20px;
+            width: 115px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+
+</head>
+<body>
+<div align="left">
+    <form action="#" id="indexForm" th:action="@{/}" method="get">
+        <button name="operation" value="withdraw" id="withdraw">Withdraw</button>
+
+        <br></br>
+        <button type="submit" name="operation" value="deposit" id="deposit">Deposit</button>
+        <br></br>
+        <button type="submit" name="operation" value="check" id="check">Check Balance</button>
+
+    </form>
+</div>
+</body>
+</html>
