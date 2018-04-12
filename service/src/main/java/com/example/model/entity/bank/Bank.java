@@ -5,7 +5,7 @@ import com.example.data.DataStorage;
 public class Bank {
 
     private String name;
-    private String swiftCode = "XX";
+    private String swiftCode = "23";
     private String countryIndex;
     private DataStorage dataStorage;
 

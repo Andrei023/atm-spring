@@ -2,7 +2,7 @@ package com.example.controller;
 
 import com.example.model.entity.bank.Bank;
 import com.example.model.entity.client.Client;
-import com.example.service.BankService;
+import com.example.service.BankServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -18,11 +18,11 @@ import javax.servlet.http.HttpSession;
 @ComponentScan("com.example.service")
 public class IndexController {
 
-    private BankService bankService;
+    private BankServiceInterface bankServiceInterface;
 
     @Autowired
-    public void setBankService(BankService bankService) {
-        this.bankService = bankService;
+    public void setBankService(BankServiceInterface bankServiceInterface) {
+        this.bankServiceInterface = bankServiceInterface;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -33,7 +33,7 @@ public class IndexController {
         if (session.isNew()) {
             Bank bank = new Bank();
             Client client = new Client("JohnDoe");
-            bankService.createAccount(bank, client);
+            bankServiceInterface.createAccount(bank, client);
             session.setAttribute("bank", bank);
             session.setAttribute("client", client);
             return "index";
@@ -45,13 +45,13 @@ public class IndexController {
 
         if (operation != null) {
             if (operation.equals("withdraw")) {
-                String currentBalance = bankService.checking(bank, client);
+                String currentBalance = bankServiceInterface.checking(bank, client);
                 model.addAttribute("balance", currentBalance);
                 return "withdraw";
             } else if (operation.equals("deposit")) {
                 return "deposit";
             } else if (operation.equals("check")) {
-                String currentBalance = bankService.checking(bank, client);
+                String currentBalance = bankServiceInterface.checking(bank, client);
                 model.addAttribute("balance", currentBalance);
                 return "checkBalance";
             }

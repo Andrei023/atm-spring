@@ -4,6 +4,7 @@ import com.example.model.Transaction;
 import com.example.model.entity.bank.Bank;
 import com.example.model.entity.client.Client;
 import com.example.service.BankService;
+import com.example.service.BankServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -21,11 +22,11 @@ import javax.validation.Valid;
 @ComponentScan("com.example.service")
 public class OperationController {
 
-    private BankService bankService;
+    private BankServiceInterface bankServiceInterface;
 
     @Autowired
-    public void setBankService(BankService bankService) {
-        this.bankService = bankService;
+    public void setBankService(BankServiceInterface bankServiceInterface) {
+        this.bankServiceInterface = bankServiceInterface;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
@@ -49,8 +50,8 @@ public class OperationController {
         if (withdrawRequested != null) {
             int amount = Integer.parseInt(withdrawRequested);
 
-            if (bankService.withdraw(bank, client, amount, currency)) {
-                model.addAttribute("balance", bankService.checking(bank, client));
+            if (bankServiceInterface.withdraw(bank, client, amount, currency)) {
+                model.addAttribute("balance", bankServiceInterface.checking(bank, client));
                 return "confirmation";
             } else {
 
@@ -60,8 +61,8 @@ public class OperationController {
         }
         if (depositRequested != null) {
             int amount = Integer.parseInt(depositRequested);
-            bankService.deposit(bank, client, amount, currency);
-            model.addAttribute("balance", bankService.checking(bank, client));
+            bankServiceInterface.deposit(bank, client, amount, currency);
+            model.addAttribute("balance", bankServiceInterface.checking(bank, client));
             return "confirmation";
         }
         return "index";

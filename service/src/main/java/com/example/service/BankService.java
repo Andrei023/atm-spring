@@ -19,15 +19,10 @@ import java.util.logging.Logger;
 @Component
 public class BankService implements BankServiceInterface{
 
+    @Autowired
     private Irs irs;
 
-    @Autowired
-    public BankService(Irs irs){
-        this.irs=irs;
-    }
-
     private static final Logger LOGGER = Logger.getLogger(BankService.class.getName());
-
 
     public void createAccount(Bank bank, Client client) {
 

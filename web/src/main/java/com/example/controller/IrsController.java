@@ -4,6 +4,7 @@ import com.example.model.entity.bank.Bank;
 import com.example.model.entity.client.Client;
 import com.example.model.entity.irs.Irs;
 import com.example.service.BankService;
+import com.example.service.BankServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
@@ -18,13 +19,13 @@ import javax.servlet.http.HttpSession;
 @ComponentScan("com.example.model")
 public class IrsController {
 
-    private BankService bankService;
-
     private Irs irs;
+    
+    private BankServiceInterface bankServiceInterface;
 
     @Autowired
-    public void setBankService(BankService bankService) {
-        this.bankService = bankService;
+    public void setBankService(BankServiceInterface bankServiceInterface) {
+        this.bankServiceInterface = bankServiceInterface;
     }
 
     @Autowired
@@ -45,11 +46,11 @@ public class IrsController {
         Client client= (Client) session.getAttribute("client");
         switch (requestedOperation){
             case("startMonitor"):
-                bankService.startMonitor(bank, client);
+                bankServiceInterface.startMonitor(bank, client);
                 model.addAttribute("irsStatusMessage","Monitoring has started.");
                 break;
             case("stopMonitor"):
-                bankService.stopMonitor(bank, client);
+                bankServiceInterface.stopMonitor(bank, client);
                 model.addAttribute("irsStatusMessage","Monitoring has stopped.");
                 break;
             case("displayCache"):
