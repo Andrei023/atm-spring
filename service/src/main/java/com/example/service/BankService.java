@@ -102,23 +102,16 @@ public class BankService implements BankServiceInterface{
             Account accountEuro = entry.getContEuro();
             Account accountRon = entry.getContRon();
             if (type.equals("EURO")) {
-                try {
                     return modifyBalance(client, entry, amount, action, accountEuro, dataStorage);
-                } catch (InvalidAccountBalanceException e) {
-                    e.printStackTrace();
-                }
+
             } else if (type.equals("RON")) {
-                try {
                     return modifyBalance(client, entry, amount, action, accountRon, dataStorage);
-                } catch (InvalidAccountBalanceException e) {
-                    e.printStackTrace();
-                }
             }
         }
         return true;
     }
 
-    private boolean modifyBalance(Client client, Entry entry, int amount, String operation, Account account, DataStorage dataStorage) throws InvalidAccountBalanceException {
+    private boolean modifyBalance(Client client, Entry entry, int amount, String operation, Account account, DataStorage dataStorage){
         if (operation.equals("deposit")) {
             account.setBalance(account.getBalance() + amount);
             if (dataStorage.getAllMonitoredClients().contains(client)) {

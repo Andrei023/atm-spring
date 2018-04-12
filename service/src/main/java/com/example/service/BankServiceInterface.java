@@ -11,7 +11,7 @@ public interface BankServiceInterface {
 
     public void deposit(Bank bank, Client client, int amount, String type);
 
-    public boolean withdraw(Bank bank, Client client, int amount, String type) throws InvalidAccountBalanceException;
+    public boolean withdraw(Bank bank, Client client, int amount, String type);
 
     public String checking(Bank bank, Client client);
 

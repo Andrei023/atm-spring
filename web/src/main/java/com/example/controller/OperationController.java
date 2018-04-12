@@ -4,7 +4,6 @@ import com.example.model.Transaction;
 import com.example.model.entity.bank.Bank;
 import com.example.model.entity.client.Client;
 import com.example.service.BankService;
-import com.example.service.InvalidAccountBalanceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
