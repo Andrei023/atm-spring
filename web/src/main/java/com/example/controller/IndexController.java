@@ -3,6 +3,8 @@ package com.example.controller;
 import com.example.model.entity.bank.Bank;
 import com.example.model.entity.client.Client;
 import com.example.service.BankService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@ComponentScan("com.example.service")
 public class IndexController {
 
-    private BankService bankService = BankService.getInstance();
+    private BankService bankService;
+
+    @Autowired
+    public void setBankService(BankService bankService) {
+        this.bankService = bankService;
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model, @RequestParam(value = "operation", required = false) String operation, HttpServletRequest request) {

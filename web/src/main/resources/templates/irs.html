@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Irs</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script th:src="@{../static/irs.js}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#startMonitor").click(function () {
+                $("#hiddenIrsForm").val("startMonitor");
+            });
+        });
+
+        $(document).ready(function () {
+            $("#stopMonitor").click(function () {
+                $("#hiddenIrsForm").val("stopMonitor");
+            });
+        });
+
+        $(document).ready(function () {
+            $("#displayCache").click(function () {
+                $("#hiddenIrsForm").val("displayCache");
+            });
+        });
+    </script>
+</head>
+<body>
+<form action="#" id="irsForm" th:action="@{/irs}" method="post">
+    <button type="submit" id="startMonitor" value="startMonitor" name="startMonitor">Start Monitor</button>
+    <button type="submit" id="stopMonitor" value="stopMonitor">Stop Monitor</button>
+    <button type="submit" id="displayCache" value="displayCache">Display Cache</button>
+    <input type="hidden" id="hiddenIrsForm" value="hiddenIrsForm" name="hiddenIrsForm"/>
+</form>
+    <p th:text="${irsStatusMessage}"></p>
+</body>
+</html>

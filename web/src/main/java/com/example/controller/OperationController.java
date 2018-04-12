@@ -4,6 +4,9 @@ import com.example.model.Transaction;
 import com.example.model.entity.bank.Bank;
 import com.example.model.entity.client.Client;
 import com.example.service.BankService;
+import com.example.service.InvalidAccountBalanceException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +19,16 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
+@ComponentScan("com.example.service")
 public class OperationController {
+
+    private BankService bankService;
+
+    @Autowired
+    public void setBankService(BankService bankService) {
+        this.bankService = bankService;
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String deposit(HttpServletRequest request, @Valid @ModelAttribute(value = "transaction") Transaction transaction, BindingResult bindingResult, Model model) {
 
@@ -26,7 +38,6 @@ public class OperationController {
             return "index";
         }
 
-        BankService bankService = BankService.getInstance();
         HttpSession session = request.getSession();
         Bank bank = (Bank) session.getAttribute("bank");
         Client client = (Client) session.getAttribute("client");
@@ -36,12 +47,17 @@ public class OperationController {
 
         String currency = request.getParameter("currency");
 
-
         if (withdrawRequested != null) {
             int amount = Integer.parseInt(withdrawRequested);
-            System.out.println("Transaction to be withdrawn:" + amount);
-            bankService.withdraw(bank, client, amount, currency);
-            return "confirmation";
+
+            if (bankService.withdraw(bank, client, amount, currency)) {
+                model.addAttribute("balance", bankService.checking(bank, client));
+                return "confirmation";
+            } else {
+
+                return "failedOperation";
+            }
+
         }
         if (depositRequested != null) {
             int amount = Integer.parseInt(depositRequested);

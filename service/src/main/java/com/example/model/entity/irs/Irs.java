@@ -1,5 +1,8 @@
 package com.example.model.entity.irs;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Irs {
 
     private static Irs instance = null;
